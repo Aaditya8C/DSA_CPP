@@ -8,17 +8,10 @@ class ArrayOps
 {
     int arr[100] = {2,8,4,5,6};
     int count = 0;
-    // int size = sizeof(arr) / sizeof(arr[0]);
-    
-    
+
     public:
         
         ArrayOps(){
-            // for(int i = 0; i < 4; i++){
-            //     arr[i] = i + 2;
-            //     count++;
-                
-            // }
             count = 5;
         }
         

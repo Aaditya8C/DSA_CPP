@@ -5,7 +5,7 @@ using namespace std;
 
 class Queue
 {
-    int front, rear, size;
+    int front, rear, size = 50;
     int *queue = new int[size];
 
 public:
@@ -13,8 +13,6 @@ public:
     {
         front = -1;
         rear = -1;
-        cout << "Enter size of the queue: ";
-        cin >> size;
     }
 
     void enqueue(int item)
@@ -32,16 +30,16 @@ public:
         }
     }
 
-    void dequeue()
+    int dequeue()
     {
         if (!isEmpty())
         {
-            cout << "\nDequeued element is:" << queue[front];
-            front += 1;
+            return queue[front++];
         }
         else
         {
             cout << "Queue underflowed";
+            return 0;
         }
     }
 
@@ -64,28 +62,71 @@ public:
     void display()
     {
         if (isEmpty())
-            cout << "Queue underflowed";
+            cout << "Stack undeflowed" << endl;
         else
         {
 
-            for (int i = 0; i <= rear; i++)
+            for (int i = front; i <= rear; i++)
             {
                 cout << queue[i] << "\t";
             }
         }
     }
+
+    int stackPeek()
+    {
+        return queue[front];
+    }
 };
 
+class Stack
+{
+    Queue q1;
+    Queue q2;
+
+public:
+    void push(int item)
+    {
+
+        while (!q1.isEmpty() && !q2.isFull())
+        {
+            q2.enqueue(q1.dequeue());
+        }
+
+        q1.enqueue(item);
+
+        while (!q2.isEmpty() && !q1.isFull())
+        {
+            q1.enqueue(q2.dequeue());
+        }
+    }
+
+    void pop()
+    {
+        cout << "Your popped element is: " << q1.dequeue();
+    }
+
+    void display()
+    {
+        q1.display();
+    }
+
+    void peek()
+    {
+        cout << "Peeked element is: " << q1.stackPeek();
+    }
+};
 int main()
 {
-    Queue queue;
+    Stack st;
     int ch, item;
 
     while (1)
     {
-        cout << "\n1.Insert element into the queue\n";
-        cout << "2.Delete element from the queue\n";
-        cout << "3.Display queue\n";
+        cout << "\n1.Push element into the stack\n";
+        cout << "2.Pop element from the stack\n";
+        cout << "3.Display stack\n";
+        cout << "4.Peek element\n";
         cout << "\nEnter choice of operation:";
         cin >> ch;
 
@@ -94,13 +135,16 @@ int main()
         case 1:
             cout << "Enter item to insert:";
             cin >> item;
-            queue.enqueue(item);
+            st.push(item);
             break;
         case 2:
-            queue.dequeue();
+            st.pop();
             break;
         case 3:
-            queue.display();
+            st.display();
+            break;
+        case 4:
+            st.peek();
             break;
         }
     }

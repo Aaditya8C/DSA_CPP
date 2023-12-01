@@ -1,24 +1,18 @@
-/******************************************************************************
 
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 #include <iostream>
 
 #define SIZE 50
 
 using namespace std;
 
-
-class ParenthsisChecker{
+class ParenthsisChecker
+{
     char *stack = new char[SIZE];
     int top;
 
-    public:
-    ParenthsisChecker(){
+public:
+    ParenthsisChecker()
+    {
         top = -1;
     }
 
@@ -27,7 +21,7 @@ class ParenthsisChecker{
         top += 1;
         stack[top] = item;
     }
-    
+
     char pop()
     {
         char popElem;
@@ -40,6 +34,11 @@ class ParenthsisChecker{
         }
         return popElem;
     }
+
+    char peek()
+    {
+        return stack[top];
+    }
     bool isEmpty()
     {
         if (top == -1)
@@ -47,29 +46,39 @@ class ParenthsisChecker{
         else
             return false;
     }
-    
-    bool includesEnd(char item){
-        if(item == ')' || item == '}' || item == ']')
+
+    bool includesEnd(char item)
+    {
+        if (item == ')' || item == '}' || item == ']')
             return true;
         else
             return false;
     }
-    bool includesStart(char item){
-        if(item == '(' || item == '{' || item == '[')
+    bool includesStart(char item)
+    {
+        if (item == '(' || item == '{' || item == '[')
             return true;
         else
             return false;
     }
-    
-    bool isValidBracket(char opening,char closing){
-        if(opening == '(' && closing == ')'){
-            return 0;
-        }else if(opening == '{' && closing == '}'){
-            return 0;
-        }else if(opening == '[' && closing == ']'){
-            return 0;
-        }else{
-            return 1;
+
+    bool isValidBracket(char opening, char closing)
+    {
+        if (opening == '(' && closing == ')')
+        {
+            return true;
+        }
+        else if (opening == '{' && closing == '}')
+        {
+            return true;
+        }
+        else if (opening == '[' && closing == ']')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 };
@@ -78,32 +87,37 @@ int main()
 {
     ParenthsisChecker checker;
     string expression;
-    cout<<"Enter expression: ";
+    cout << "Enter expression: ";
     cin >> expression;
-    
-    
-    for(int i = 0; i < expression.length(); i++){
-        if(checker.includesEnd(expression[i])){
-            char openingBracket = checker.pop();
-            if(checker.isValidBracket(openingBracket,expression[i])){
-                // cout << "Invalid Expression";
+    bool isValid = true;
+
+    for (int i = 0; i < expression.length(); i++)
+    {
+        if (checker.includesEnd(expression[i])){
+            if (!checker.isEmpty())
+            {
+                char openingBracket = checker.peek();
+                if (checker.isValidBracket(openingBracket, expression[i]))
+                {
+                    checker.pop();
+                    continue;
+                }
+            }
+            else
+            {
+                isValid = false;
                 break;
             }
-        }else if(checker.includesStart(expression[i])){
+        }
+        else if (checker.includesStart(expression[i])){
             checker.push(expression[i]);
         }
     }
-    
-    if(checker.isEmpty())
+
+    if (checker.isEmpty() && isValid)
         cout << "Valid expression";
     else
         cout << "Invalid expression";
-    
-    
-    
-    
 
     return 0;
 }
-
-

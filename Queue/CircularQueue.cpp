@@ -21,9 +21,9 @@ public:
     {
         if (!isFull())
         {
-            rear += 1;
+            rear = (rear + 1) % size;
             queue[rear] = item;
-            if (rear == 0)
+            if (rear == 0 && front == -1)
                 front += 1;
         }
         else
@@ -37,7 +37,7 @@ public:
         if (!isEmpty())
         {
             cout << "\nDequeued element is:" << queue[front];
-            front += 1;
+            front = (front + 1) % size;
         }
         else
         {
@@ -47,7 +47,7 @@ public:
 
     bool isFull()
     {
-        if (rear == size - 1)
+        if ((rear + 1) % size == front)
             return true;
         else
             return false;
@@ -55,7 +55,7 @@ public:
 
     bool isEmpty()
     {
-        if ((rear == -1 && front == -1) || (front > rear))
+        if ((rear == -1 && front == -1) || rear == front)
             return true;
         else
             return false;
@@ -63,15 +63,9 @@ public:
 
     void display()
     {
-        if (isEmpty())
-            cout << "Queue underflowed";
-        else
+        for (int i = 0; i < size; i++)
         {
-
-            for (int i = 0; i <= rear; i++)
-            {
-                cout << queue[i] << "\t";
-            }
+            cout << queue[i];
         }
     }
 };
