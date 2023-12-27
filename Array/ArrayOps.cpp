@@ -91,6 +91,7 @@ class ArrayOps
         
         void bubbleSort(){
             //  {-2,45,0,11,-9}
+            // O(n^2)
             int temp;
             cout<<endl<<endl;
             for(int s = 0; s < count; s++){
@@ -110,6 +111,7 @@ class ArrayOps
         void insertionSort(){
             // {2,8,4,5,6}
              // {2,8,4,5,6}
+            // O(n^2)
             int key,i,j;
             
             for(i = 1; i < count; i++){

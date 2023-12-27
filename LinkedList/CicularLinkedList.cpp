@@ -109,7 +109,7 @@ public:
 
         if (temp == start)
         {
-            cout << "List is empty";
+            // cout << "List is empty";
             x = start->info;
             delete temp;
         }
@@ -180,18 +180,15 @@ public:
     void displayList()
     {
         Node *temp = start;
+
+        while (temp->next != start)
+        {
+            cout << temp->info << "  -->  ";
+            temp = temp->next;
+        }
         if (temp->next == start)
         {
             cout << temp->info;
-        }
-        else
-        {
-            while (temp->next != start)
-            {
-                cout << temp->info << "  -->  ";
-                temp = temp->next;
-            }
-            cout << temp->info << "  -->  ";
         }
     }
 };

@@ -28,31 +28,52 @@ public:
         root = NULL;
     }
 
-    void insert(int data)
+    Node *insertRecursive(Node *current, int data)
     {
-        Node *node = new Node();
-        node->info = data;
-        Node *current = root;
-        Node *prev = NULL;
-
         if (current == NULL)
-            root = node;
+        {
+            Node *newNode = new Node();
+            newNode->info = data;
+            return newNode;
+        }
+
+        if (data > current->info)
+        {
+            current->right = insertRecursive(current->right, data);
+        }
         else
         {
-            while (current != NULL)
-            {
-                prev = current;
-
-                if (node->info > current->info)
-                    current = current->right;
-                else
-                    current = current->left;
-            }
-            if (node->info > prev->info)
-                prev->right = node;
-            else
-                prev->left = node;
+            current->left = insertRecursive(current->left, data);
         }
+
+        return current;
+    }
+    void insert(int data)
+    {
+        root = insertRecursive(root, data);
+        // Node *node = new Node();
+        // node->info = data;
+        // Node *current = root;
+        // Node *prev = NULL;
+
+        // if (current == NULL)
+        //     root = node;
+        // else
+        // {
+        //     while (current != NULL)
+        //     {
+        //         prev = current;
+
+        //         if (node->info > current->info)
+        //             current = current->right;
+        //         else
+        //             current = current->left;
+        //     }
+        //     if (node->info > prev->info)
+        //         prev->right = node;
+        //     else
+        //         prev->left = node;
+        // }
     }
 
     Node *getMinimumKey(Node *current)
@@ -104,7 +125,7 @@ public:
         {
             Node *inorderSuccessor = getMinimumKey(current->right);
             int data = inorderSuccessor->info;
-            cout << data;
+            // cout << data;
             deleteNode(root, data);
             current->info = data;
         }
@@ -131,6 +152,16 @@ public:
         // delete current;
     }
 
+    void descendents(Node *root, bool checked)
+    {
+        if (root)
+        {
+            checked &&cout << root->info << "\t";
+            descendents(root->left, true);
+            descendents(root->right, true);
+        }
+    }
+
     void inorder(Node *root)
     {
         if (root != NULL)
@@ -153,14 +184,22 @@ int main()
     // bt.insert(5);
     // bt.insert(12);
     // bt.insert(30);
-    bt.insert(40);
-    bt.insert(60);
+    bt.insert(1);
+    bt.insert(7);
+    bt.insert(9);
+    bt.insert(2);
+    bt.insert(6);
+    bt.insert(8);
+    bt.insert(5);
+    bt.insert(11);
+    bt.insert(15);
     // bt.inorder(bt.root);
     while (1)
     {
         cout << "\n1. Insert in BST: " << endl;
         cout << "2. Delete in BST: " << endl;
         cout << "3. Display List: " << endl;
+        cout << "4. Display descendents: " << endl;
 
         cout << "\nEnter operation to perform: ";
         cin >> ch;
@@ -179,6 +218,10 @@ int main()
             break;
         case 3:
             bt.inorder(bt.root);
+            cout << endl;
+            break;
+        case 4:
+            bt.descendents(bt.root, false);
             cout << endl;
             break;
         default:

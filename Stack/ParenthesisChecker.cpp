@@ -1,4 +1,5 @@
 
+// O(n)
 #include <iostream>
 
 #define SIZE 50

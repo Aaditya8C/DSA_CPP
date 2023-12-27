@@ -3,6 +3,9 @@
     "files.associations": {
         "iostream": "cpp",
         "ostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "set": "cpp",
+        "deque": "cpp",
+        "string": "cpp"
     }
 }

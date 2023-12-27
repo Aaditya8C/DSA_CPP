@@ -55,7 +55,7 @@ public:
 
     bool isEmpty()
     {
-        if ((rear == -1 && front == -1) || rear == front)
+        if ((rear == -1 && front == -1) || front == rear)
             return true;
         else
             return false;
