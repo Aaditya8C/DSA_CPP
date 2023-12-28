@@ -156,7 +156,7 @@ public:
     {
         if (root)
         {
-            checked &&cout << root->info << "\t";
+            checked && cout << root->info << "\t";
             descendents(root->left, true);
             descendents(root->right, true);
         }

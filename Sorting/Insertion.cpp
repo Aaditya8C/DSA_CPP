@@ -5,6 +5,7 @@ class InsertionSort
 {
     int size;
     int *arr = new int[size];
+
 public:
     InsertionSort()
     {
@@ -19,20 +20,32 @@ public:
         }
     }
 
+    // void sort()
+    // {
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         int key = arr[i + 1];
+    //         for (int j = i; j >= 0; j--)
+    //         {
+    //             if (key < arr[j])
+    //             {
+    //                 int temp = arr[j];
+    //                 arr[j] = key;
+    //                 arr[j + 1] = temp;
+    //             }
+    //         }
+    //     }
+    // }
     void sort()
     {
-        for (int i = 0; i < size; i++)
-        {
-            int key = arr[i + 1];
-            for (int j = i; j >= 0; j--)
-            {
-                if (key < arr[j])
-                {
-                    int temp = arr[j];
-                    arr[j] = key;
-                    arr[j + 1] = temp;
-                }
+        for(int i = 1;i < size;i++){
+            int j = i - 1;
+            int key = arr[i];
+            while(j >= 0 && arr[j] > key){
+                arr[j + 1] = arr[j];
+                j -= 1;
             }
+            arr[j + 1] = key;
         }
     }
 

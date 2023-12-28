@@ -119,7 +119,7 @@ public:
     }
 };
 int main()
-{
+{ 
     InsertionSort ist;
     auto start_time = chrono::high_resolution_clock::now();
     ist.display();

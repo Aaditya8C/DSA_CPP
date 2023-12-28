@@ -51,17 +51,17 @@ class InfixEvaluation{
 int main()
 {
     InfixEvaluation infix;
-    string infixExpression;
-    cout<<"Enter postfix expression: ";
-    cin >> infixExpression;
+    string prefixExpression;
+    cout<<"Enter prefix expression: ";
+    cin >> prefixExpression;
     
     
-    for(int i = infixExpression.length() - 1; i >= 0; i--){
-        if(infixExpression[i] == '+' || infixExpression[i] == '-' || infixExpression[i] == '*' || infixExpression[i] == '/'){
+    for(int i = prefixExpression.length() - 1; i >= 0; i--){
+        if(prefixExpression[i] == '+' || prefixExpression[i] == '-' || prefixExpression[i] == '*' || prefixExpression[i] == '/'){
             int operand1 = infix.pop();
             int operand2 = infix.pop();
             
-            switch(infixExpression[i]){
+            switch(prefixExpression[i]){
                 case '+':
                     infix.push(operand1 + operand2);
                     break;
@@ -76,7 +76,7 @@ int main()
                     break;
             }
         }else{
-            infix.push(infixExpression[i] - '0');
+            infix.push(prefixExpression[i] - '0');
         }
     }
     
